@@ -32,5 +32,6 @@ module Store
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
     config.active_job.queue_adapter = :sidekiq
+    config.action_controller.action_on_unpermitted_parameters = :raise
   end
 end
