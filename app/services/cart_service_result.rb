@@ -1,10 +1,27 @@
 class CartServiceResult
-    attr_reader :success, :data, :errors
+    attr_reader :success, :data, :errors, :code
 
-    def initialize(success:, data: nil, errors: [])
+    DEFAULT_MESSAGES = {
+        invalid_product: 'Produto inválido',
+        invalid_product_or_quantity: 'Produto ou quantidade inválida',
+        not_found: 'Registro não encontrado',
+        internal_error: 'Erro interno do servidor',
+        unknown_error: 'Erro desconhecido'
+    }
+
+    ERROR_CODES = {
+        not_found: 404,
+        unprocessable: 422,
+        forbidden: 403,
+        internal: 500,
+        unavailable: 503
+    }
+
+    def initialize(success:, data: nil, errors: [], code: nil)
         @success = success
         @data = data
         @errors = errors
+        @code = code
     end
 
     def success?
@@ -12,7 +29,7 @@ class CartServiceResult
     end
 
     def as_json 
-        return { errors: @errors } unless success?
+        return { success: false, errors: @errors, code: @code } unless success?
 
         cart = @data
         {
