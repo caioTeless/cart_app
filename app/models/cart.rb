@@ -4,4 +4,6 @@ class Cart < ApplicationRecord
   has_many :products, through: :cart_items
 
   # TODO: lógica para marcar o carrinho como abandonado e remover se abandonado
+  scope :to_abandoned, -> { where(abandoned: false).where('updated_at <= ?', 3.hours.ago) }
+  scope :to_remove, -> { where(abandoned: true).where('updated_at <= ?', 7.days.ago) }
 end

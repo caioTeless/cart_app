@@ -16,11 +16,11 @@ services:
         - '6379:6379'
         volumes:
         - redis_data:/data  
-    
+
     #TODO
     web:
         build: .
-        command: bash -c 'bundle exec rails db:create db:migrate && bundle exec rails s -b 0.0.0.0 -p 3000'
+        command: bundle exec rails s -b 0.0.0.0 -p 3000
         volumes:
             - .:/rails
         ports:
@@ -31,9 +31,20 @@ services:
         environment:
             DATABASE_URL: postgresql://postgres:password@db:5432/store_development
             REDIS_URL: redis://redis:6379/0
+
+    sidekiq:
+        build: .
+        command: bundle exec sidekiq
+        depends_on:
+            - redis
+            - db
+        environment:
+            DATABASE_URL: postgresql://postgres:password@db:5432/store_development
+            REDIS_URL: redis://redis:6379/0
+
     test:
         build: .
-        command: bash -c 'RAILS_ENV=test bundle exec rails db:create db:migrate && bundle exec rspec'
+        command: bundle exec rspec
         volumes:
             - .:/rails
         depends_on:

@@ -2,7 +2,7 @@ class CartServiceResult
     attr_reader :success, :data, :errors, :code
 
     DEFAULT_MESSAGES = {
-        invalid_product: 'Produto inválido',
+        invalid_product: 'Produto inválido para exclusão',
         invalid_product_or_quantity: 'Produto ou quantidade inválida',
         not_found: 'Registro não encontrado',
         internal_error: 'Erro interno do servidor',
