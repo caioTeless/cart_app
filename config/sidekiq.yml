@@ -10,11 +10,11 @@
 
 :scheduler:
   mark_cart_as_abandoned_job:
-    cron: "*/1 * * * *"
+    cron: "0 */3 * * *" # every 3 hours
     class: "MarkCartAsAbandonedJob"
     queue: default
 
   remove_cart_abandoned_job:
-    cron: "*/1 * * * *"
+    cron: "0 0 * * 0" # every Sunday at midnight
     class: "RemoveCartAbandonedJob"
     queue: default

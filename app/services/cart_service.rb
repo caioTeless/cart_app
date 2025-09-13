@@ -18,7 +18,7 @@ class CartService
 
     def update
         if cart_item.present?
-            cart_item.update!(quantity: quantity)
+            cart_item.update!(quantity: cart_item.quantity + quantity)
         else
             current_cart.cart_items.create!({ product: product, quantity: quantity } )
         end
