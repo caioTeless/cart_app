@@ -81,3 +81,4 @@ Pontos possíveis para melhoriaa
 - 3 - Tratamento das foreign keys com mensagens customizadas, melhorias no model
 - 4 - Automatização no docker de todos os comandos
 - 5 - Criar helper para chamadas da API
+- 6 - Ajustar specs, simplificar lógica
